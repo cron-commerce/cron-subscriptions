@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Cron Commerce",
   "scripts": {
-    "ngrok": "ts-node ngrok/index.ts",
+    "ngrok": "node ngrok.js",
     "dev": "nodemon -r dotenv/config server/index.ts",
     "build-client": "webpack",
     "build-server": "tsc --project tsconfig.server.json",
