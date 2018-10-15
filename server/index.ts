@@ -6,6 +6,7 @@ import * as session from 'koa-session'
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
 import renderHTML from './render-html'
+import initTypeorm from './init-typeorm'
 
 const port = process.env.PORT || 3000
 
@@ -28,6 +29,8 @@ const verifyRequestArgs = {
 }
 
 ;(async function () {
+  await initTypeorm()
+
   const app = new Koa()
 
   app.keys = [process.env.SHOPIFY_APP_SECRET]

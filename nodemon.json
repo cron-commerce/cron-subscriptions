@@ -1,6 +1,7 @@
 {
   "ext": "tsx,ts",
   "watch": [
+    "entities/",
     "server/",
     "shopify-admin-app/"
   ],

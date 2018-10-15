@@ -4,5 +4,10 @@
     "module": "commonjs",
     "outDir": ".dist/server"
   },
-  "include": ["server/**/*.ts"]
+  "include": [
+    "entities/**/*.ts",
+    "migrations/**/*.ts",
+    "subscribers/**/*.ts",
+    "server/**/*.ts"
+  ]
 }
