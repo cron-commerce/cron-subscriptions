@@ -3,10 +3,10 @@ import 'isomorphic-fetch'
 import * as Koa from 'koa'
 import * as logger from 'koa-logger'
 import * as session from 'koa-session'
+import * as koaWebpack from 'koa-webpack'
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
-import ShopifyAdminApp from '../shopify-admin-app/app'
-import renderApp from './render-app'
+import renderHTML from './render-html'
 
 const port = process.env.PORT || 3000
 
@@ -18,8 +18,7 @@ const shopifyAuthArgs = {
   secret: process.env.SHOPIFY_APP_SECRET,
   scopes: ['read_products'],
   afterAuth(ctx) {
-    const {shop, accessToken} = ctx.session
-    console.log('We did it!', accessToken)
+    console.log(`Got accessToken ${ctx.session.accessToken} for shop ${ctx.session.shop}`)
     ctx.redirect('/')
   },
 }
@@ -29,16 +28,19 @@ const verifyRequestArgs = {
   fallbackRoute: `${shopifyPrefix}/auth`,
 }
 
-const app = new Koa()
+koaWebpack({hotClient: false}).then(webpackMiddleware => {
+  const app = new Koa()
 
-app.keys = [process.env.SHOPIFY_APP_SECRET]
+  app.keys = [process.env.SHOPIFY_APP_SECRET]
 
-app
-  .use(logger())
-  .use(session(app))
-  .use(shopifyAuth(shopifyAuthArgs))
-  .use(verifyRequest(verifyRequestArgs))
-  .use(renderApp(ShopifyAdminApp))  
-  .listen(port, () => {
-    console.log(`> Ready on http://localhost:${port}`)
+  app
+    .use(logger())
+    .use(webpackMiddleware)
+    .use(session(app))
+    .use(shopifyAuth(shopifyAuthArgs))
+    .use(verifyRequest(verifyRequestArgs))
+    .use(renderHTML())
+    .listen(port, () => {
+      console.log(`> Ready on http://localhost:${port}`)
+    })
   })
