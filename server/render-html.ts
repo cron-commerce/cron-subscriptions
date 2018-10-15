@@ -1,24 +1,19 @@
 import {Context} from 'koa'
 
-export default () => (ctx: Context) => {
+export default (scriptFilename: string) => (ctx: Context) => {
   ctx.body = 
 `<!DOCTYPE html>
   <html>
     <head>
-      <meta charset="utf-8"/>
-      <title>Go</title>
-      <script src="https://cdn.shopify.com/s/assets/external/app.js"></script>
-      <script type="text/javascript">
-        ShopifyApp.init({
-          apiKey: '${process.env.SHOPIFY_APP_KEY}',
-          debug: false,
-          shopOrigin: 'https://${ctx.session.shop}'
-        });
-      </script>
+      <link rel="stylesheet" href="https://sdks.shopifycdn.com/polaris/2.12.1/polaris.min.css" />
     </head>
     <body>
       <div id="app"></div>
-      <script src="/shopify-admin-app.js"></script>
+      <script type="text/javascript">
+        var shopifyApiKey = '${process.env.SHOPIFY_APP_KEY}';
+        var shopifyShopOrigin = 'https://${ctx.session.shop}';
+      </script>
+      <script src="/public/scripts/${scriptFilename}"></script>
     </body>
   </html>`
 }

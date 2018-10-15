@@ -3,7 +3,6 @@ import 'isomorphic-fetch'
 import * as Koa from 'koa'
 import * as logger from 'koa-logger'
 import * as session from 'koa-session'
-import * as koaWebpack from 'koa-webpack'
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
 import renderHTML from './render-html'
@@ -28,19 +27,25 @@ const verifyRequestArgs = {
   fallbackRoute: `${shopifyPrefix}/auth`,
 }
 
-koaWebpack({hotClient: false}).then(webpackMiddleware => {
+;(async function () {
   const app = new Koa()
 
   app.keys = [process.env.SHOPIFY_APP_SECRET]
 
+  app.use(logger())
+
+  if (process.env.NODE_ENV === 'development') {
+    await require('./webpack-middleware').default(app)
+  } else {
+    require('./mount-static').default(app)
+  }
+
   app
-    .use(logger())
-    .use(webpackMiddleware)
-    .use(session(app))
-    .use(shopifyAuth(shopifyAuthArgs))
-    .use(verifyRequest(verifyRequestArgs))
-    .use(renderHTML())
-    .listen(port, () => {
-      console.log(`> Ready on http://localhost:${port}`)
-    })
+  .use(session(app))
+  .use(shopifyAuth(shopifyAuthArgs))
+  .use(verifyRequest(verifyRequestArgs))
+  .use(renderHTML('shopify-admin-app.js'))
+  .listen(port, () => {
+    console.log(`> Ready on http://localhost:${port}`)
   })
+}())

@@ -4,7 +4,7 @@ import {AppProvider} from '@shopify/polaris'
 
 import App from './app'
 
-const app = <AppProvider>
+const app = <AppProvider apiKey={window.shopifyApiKey} shopOrigin={window.shopifyShopOrigin}>
   <App />
 </AppProvider>
 

@@ -1,7 +1,9 @@
 const {join} = require('path')
 
 module.exports = {
-  entry: [join(__dirname, 'shopify-admin-app/index.tsx')],
+  entry: {
+    'shopify-admin-app': join(__dirname, 'shopify-admin-app/index.tsx')
+  },
   mode: process.env.NODE_ENV || 'development',
   module: {
     rules: [{
@@ -11,9 +13,8 @@ module.exports = {
     }],
   },
   output: {
-    filename: 'shopify-admin-app.js',
-    path: join(__dirname, '.dist-client'),
-    publicPath: '/',
+    path: join(__dirname, '.dist', 'public', 'scripts'),
+    publicPath: '/public/scripts',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],

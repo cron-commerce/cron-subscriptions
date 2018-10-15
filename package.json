@@ -5,8 +5,8 @@
   "scripts": {
     "ngrok": "ts-node ngrok/index.ts",
     "dev": "nodemon -r dotenv/config server/index.ts",
-    "build": "webpack",
-    "start": "node .next/production-server/index.js"
+    "build": "webpack && tsc --project tsconfig.server.json",
+    "start": "node .dist/server/index.js"
   },
   "author": "Cron Commerce",
   "dependencies": {
@@ -16,9 +16,10 @@
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.5.3",
     "koa-logger": "^3.2.0",
+    "koa-mount": "^4.0.0",
     "koa-router": "^7.4.0",
     "koa-session": "^5.9.0",
-    "koa-webpack": "^5.1.0",
+    "koa-static": "^5.0.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "typescript": "^3.1.3"
@@ -30,6 +31,7 @@
     "@types/node": "^10.11.7",
     "@types/react": "^16.4.16",
     "dotenv": "^6.1.0",
+    "koa-webpack": "^5.1.0",
     "ngrok": "^3.0.1",
     "nodemon": "^1.18.4",
     "ts-loader": "^5.2.2",
