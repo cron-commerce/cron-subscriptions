@@ -1,35 +1,30 @@
 {
   "name": "cron-subscriptions",
   "version": "1.0.0",
-  "description": "",
+  "description": "Cron Commerce",
   "scripts": {
-    "ngrok": "ts-node -r dotenv/config server/ngrok.ts",
+    "ngrok": "ts-node ngrok/index.ts",
     "dev": "nodemon -r dotenv/config server/index.ts",
     "build": "next build && tsc --project tsconfig.server.json",
     "start": "node .next/production-server/index.js"
   },
   "author": "Cron Commerce",
   "dependencies": {
-    "@babel/core": "^7.1.2",
     "@shopify/koa-shopify-auth": "^3.1.3",
-    "@zeit/next-typescript": "^1.1.1",
-    "babel-loader": "^8.0.4",
-    "express": "^4.16.4",
     "isomorphic-fetch": "^2.2.1",
     "koa": "^2.5.3",
+    "koa-logger": "^3.2.0",
     "koa-router": "^7.4.0",
     "koa-session": "^5.9.0",
-    "morgan": "^1.9.1",
-    "next": "^7.0.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "typescript": "^3.1.3",
-    "typescript-babel-jest": "^1.0.5"
+    "typescript": "^3.1.3"
   },
   "devDependencies": {
-    "@types/express": "^4.16.0",
     "@types/isomorphic-fetch": "0.0.34",
-    "@types/next": "^7.0.2",
+    "@types/koa": "^2.0.46",
+    "@types/koa-session": "^5.7.4",
+    "@types/node": "^10.11.7",
     "@types/react": "^16.4.16",
     "dotenv": "^6.1.0",
     "ngrok": "^3.0.1",

@@ -1,1 +1,0 @@
-export default () => <div>Welcome to Cron Subscriptions!</div>
