@@ -1,5 +1,9 @@
 {
-  "watch": ["server/**/*.ts"],
+  "ext": "tsx,ts",
+  "watch": [
+    "server/",
+    "shopify-admin-app/"
+  ],
   "execMap": {
     "ts": "ts-node"
   }
