@@ -15,7 +15,7 @@ export default () => (req: Request, res: Response) => {
   return res.redirect([
     `https://${req.query.shop}/admin/oauth/authorize?client_id=${process.env.SHOPIFY_APP_KEY}`,
     `scope=${scope}`,
-    `redirect_uri=${process.env.SHOPIFY_APP_HOST}/app-install/confirm`,
+    `redirect_uri=${process.env.SHOPIFY_APP_HOST}/shopify-app/confirm-install`,
     `state=${process.env.SHOPIFY_APP_NONCE}`,
   ].join('&'))
 }

@@ -1,8 +1,9 @@
 import * as express from 'express'
+import * as morgan from 'morgan'
 import * as next from 'next'
 
-import appInstallRoute from './app-install/'
-import appInstallConfirmRoute from './app-install/confirm'
+import shopifyAppRoute from './shopify-app'
+import shopifyAppConfirmInstallRoute from './shopify-app/confirm-install'
 
 const port = parseInt(process.env.PORT, 10) || 3000
 const dev = process.env.NODE_ENV !== 'production'
@@ -13,8 +14,9 @@ nextApp.prepare()
 .then(() => {
   const app = express()
 
-  app.get('/app-install', appInstallRoute())
-  app.get('/app-install/confirm', appInstallConfirmRoute())
+  app.use(morgan('dev'))
+  app.get('/shopify-app', shopifyAppRoute())
+  app.get('/shopify-app/confirm-install', shopifyAppConfirmInstallRoute())
   app.get('*', (req, res) => handle(req, res))
     
   app.listen(port)
