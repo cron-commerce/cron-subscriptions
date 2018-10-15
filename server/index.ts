@@ -5,6 +5,7 @@ import * as logger from 'koa-logger'
 import * as session from 'koa-session'
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
+import renderHomepage from './render-homepage'
 import renderHTML from './render-html'
 import initTypeorm from './init-typeorm'
 
@@ -44,6 +45,7 @@ const verifyRequestArgs = {
   }
 
   app
+  .use(renderHomepage())
   .use(session(app))
   .use(shopifyAuth(shopifyAuthArgs))
   .use(verifyRequest(verifyRequestArgs))
