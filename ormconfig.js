@@ -7,14 +7,12 @@ module.exports = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   logging: true,
   entities: [`${dirPrefix}entities/**/*`],
   migrations: [`${dirPrefix}migrations/**/*`],
-  subscribers: [`${dirPrefix}subscribers/**/*`],
   cli: {
     entitiesDir: `${dirPrefix}entities`,
     migrationsDir: `${dirPrefix}migrations`,
-    subscribersDir: `${dirPrefix}subscribers`,
   }
 }

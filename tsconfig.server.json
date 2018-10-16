@@ -7,7 +7,6 @@
   "include": [
     "entities/**/*.ts",
     "migrations/**/*.ts",
-    "subscribers/**/*.ts",
     "server/**/*.ts"
   ]
 }
