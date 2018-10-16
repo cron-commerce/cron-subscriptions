@@ -7,17 +7,17 @@ interface Props {
 }
 
 export default class Link extends React.Component<Props> {
-  static contextTypes = {
-    easdk: () => {}
+  public static contextTypes = {
+    easdk: () => null,
   }
 
-  render() {
+  public render() {
     return <RouterLink onClick={this.changeUrl} to={this.props.url}>
       {this.props.children}
     </RouterLink>
   }
 
-  changeUrl = () => {
+  private changeUrl = () => {
     this.context.easdk.pushState(this.props.url)
   }
 }

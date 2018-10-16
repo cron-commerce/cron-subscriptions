@@ -1,7 +1,7 @@
 import {Context} from 'koa'
 
 export default (scriptFilename: string) => (ctx: Context) => {
-  ctx.body = 
+  ctx.body =
 `<!DOCTYPE html>
 <html>
   <head>

@@ -1,8 +1,8 @@
 import {Context} from 'koa'
 
-export default () => async (ctx: Context, next: Function) => {
+export default () => async (ctx: Context, next: () => void) => {
   if (ctx.path === '/') {
-    ctx.body = 
+    ctx.body =
 `<!DOCTYPE html>
 <html>
   <head>

@@ -1,12 +1,12 @@
+import {Link, Page} from '@shopify/polaris'
 import * as React from 'react'
 import {Route, Switch} from 'react-router-dom'
-import {Link, Page} from '@shopify/polaris'
 
 import About from './about'
 import Home from './home'
 
 export default class App extends React.Component<{}> {
-  render() {
+  public render() {
     return <Page title='Cron Commerce App'>
       <h1>Cron Commerce</h1>
       <ul>

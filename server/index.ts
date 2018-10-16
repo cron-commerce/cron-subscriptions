@@ -1,33 +1,19 @@
 import 'isomorphic-fetch'
 
+import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 import * as Koa from 'koa'
 import * as logger from 'koa-logger'
 import * as session from 'koa-session'
-import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
 import afterShopifyAuth from './after-shopify-auth'
+import initTypeorm from './init-typeorm'
 import renderHomepage from './render-homepage'
 import renderHTML from './render-html'
-import initTypeorm from './init-typeorm'
 
 const port = process.env.PORT || 3000
-
 const shopifyPrefix = '/shopify'
 
-const shopifyAuthArgs = {
-  prefix: shopifyPrefix,
-  apiKey: process.env.SHOPIFY_APP_KEY,
-  secret: process.env.SHOPIFY_APP_SECRET,
-  scopes: ['read_products'],
-  afterAuth: afterShopifyAuth,
-}
-
-const verifyRequestArgs = {
-  authRoute: `${shopifyPrefix}/auth`, 
-  fallbackRoute: `${shopifyPrefix}/auth`,
-}
-
-;(async function () {
+const main = async () => {
   await initTypeorm()
 
   const app = new Koa()
@@ -45,10 +31,21 @@ const verifyRequestArgs = {
   app
   .use(renderHomepage())
   .use(session(app))
-  .use(shopifyAuth(shopifyAuthArgs))
-  .use(verifyRequest(verifyRequestArgs))
+  .use(shopifyAuth({
+    afterAuth: afterShopifyAuth,
+    apiKey: process.env.SHOPIFY_APP_KEY,
+    prefix: shopifyPrefix,
+    scopes: ['read_products'],
+    secret: process.env.SHOPIFY_APP_SECRET,
+  }))
+  .use(verifyRequest({
+    authRoute: `${shopifyPrefix}/auth`,
+    fallbackRoute: `${shopifyPrefix}/auth`,
+  }))
   .use(renderHTML('shopify-admin-app.js'))
   .listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`)
   })
-}())
+}
+
+main()

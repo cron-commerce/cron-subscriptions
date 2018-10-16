@@ -1,13 +1,13 @@
+import {AppProvider} from '@shopify/polaris'
 import * as React from 'react'
 import {render} from 'react-dom'
 import {BrowserRouter} from 'react-router-dom'
-import {AppProvider} from '@shopify/polaris'
 
 import App from './app'
 import Link from './link'
 
-const app = <AppProvider 
-  apiKey={window.shopifyApiKey} 
+const app = <AppProvider
+  apiKey={window.shopifyApiKey}
   linkComponent={Link as typeof React.Component}
   shopOrigin={window.shopifyShopOrigin}
 >
