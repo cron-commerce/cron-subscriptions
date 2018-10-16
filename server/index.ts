@@ -5,6 +5,7 @@ import * as logger from 'koa-logger'
 import * as session from 'koa-session'
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 
+import afterShopifyAuth from './after-shopify-auth'
 import renderHomepage from './render-homepage'
 import renderHTML from './render-html'
 import initTypeorm from './init-typeorm'
@@ -18,10 +19,7 @@ const shopifyAuthArgs = {
   apiKey: process.env.SHOPIFY_APP_KEY,
   secret: process.env.SHOPIFY_APP_SECRET,
   scopes: ['read_products'],
-  afterAuth(ctx) {
-    console.log(`Got accessToken ${ctx.session.accessToken} for shop ${ctx.session.shop}`)
-    ctx.redirect('/')
-  },
+  afterAuth: afterShopifyAuth,
 }
 
 const verifyRequestArgs = {
