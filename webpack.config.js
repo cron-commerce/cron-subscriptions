@@ -1,5 +1,6 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {join} = require('path')
+const ManifestPlugin = require('webpack-manifest-plugin')
 
 module.exports = {
   entry: {
@@ -21,11 +22,17 @@ module.exports = {
   }],
   },
   output: {
+    filename: '[name].[contenthash].js',
     path: join(__dirname, '.dist', 'public', 'assets'),
-    publicPath: '/assets',
+    publicPath: '/assets/',
   },
   plugins: [
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css'
+    }),
+    new ManifestPlugin({
+      writeToFileEmit: true
+    }),
   ],
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
