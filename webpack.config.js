@@ -5,7 +5,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 module.exports = {
   entry: {
     'checkout': join(__dirname, 'checkout/index.tsx'),
-    'shopify-admin-app': join(__dirname, 'shopify-admin-app/index.tsx'),
+    'shopify-admin': join(__dirname, 'shopify-admin/index.tsx'),
   },
   mode: process.env.NODE_ENV || 'development',
   module: {

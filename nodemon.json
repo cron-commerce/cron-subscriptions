@@ -2,8 +2,7 @@
   "ext": "tsx,ts",
   "watch": [
     "entities/",
-    "server/",
-    "shopify-admin-app/"
+    "server/"
   ],
   "execMap": {
     "ts": "ts-node"

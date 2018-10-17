@@ -10,7 +10,7 @@ import afterShopifyAuth from './after-shopify-auth'
 import initTypeorm from './init-typeorm'
 import renderCheckout from './render-checkout'
 import renderHomepage from './render-homepage'
-import renderHTML from './render-html'
+import renderShopifyAdmin from './render-shopify-admin'
 
 const port = process.env.PORT || 3000
 const shopifyPrefix = '/shopify'
@@ -46,7 +46,7 @@ const main = async () => {
     authRoute: `${shopifyPrefix}/auth`,
     fallbackRoute: `${shopifyPrefix}/auth`,
   }))
-  .use(renderHTML('shopify-admin-app.js'))
+  .use(renderShopifyAdmin())
   .listen(port, () => {
     console.log(`> Ready on http://localhost:${port}`)
   })

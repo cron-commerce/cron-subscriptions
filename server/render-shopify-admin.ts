@@ -2,7 +2,7 @@ import {Context} from 'koa'
 
 import loadManifest from './load-manifest'
 
-export default (scriptFilename: string) => (ctx: Context) => {
+export default () => (ctx: Context) => {
   const manifest = loadManifest()
 
   ctx.body =
@@ -17,7 +17,7 @@ export default (scriptFilename: string) => (ctx: Context) => {
       var shopifyApiKey = '${process.env.SHOPIFY_APP_KEY}';
       var shopifyShopOrigin = 'https://${ctx.session.shop}';
     </script>
-    <script src="${manifest[scriptFilename]}"></script>
+    <script src="${manifest['shopify-admin.js']}"></script>
   </body>
 </html>`
 }
