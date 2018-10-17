@@ -2,7 +2,8 @@ const {join} = require('path')
 
 module.exports = {
   entry: {
-    'shopify-admin-app': join(__dirname, 'shopify-admin-app/index.tsx')
+    'checkout': join(__dirname, 'checkout/index.tsx'),
+    'shopify-admin-app': join(__dirname, 'shopify-admin-app/index.tsx'),
   },
   mode: process.env.NODE_ENV || 'development',
   module: {

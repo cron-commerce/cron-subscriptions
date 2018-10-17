@@ -2,11 +2,13 @@ import 'isomorphic-fetch'
 
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 import * as Koa from 'koa'
+import * as favicon from 'koa-favicon'
 import * as logger from 'koa-logger'
 import * as session from 'koa-session'
 
 import afterShopifyAuth from './after-shopify-auth'
 import initTypeorm from './init-typeorm'
+import renderCheckout from './render-checkout'
 import renderHomepage from './render-homepage'
 import renderHTML from './render-html'
 
@@ -29,7 +31,9 @@ const main = async () => {
   }
 
   app
+  .use(favicon(__dirname + '/public/favicon.ico'))
   .use(renderHomepage())
+  .use(renderCheckout())
   .use(session(app))
   .use(shopifyAuth({
     afterAuth: afterShopifyAuth,
