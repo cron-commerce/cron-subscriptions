@@ -7,11 +7,12 @@ export default () => async (ctx: Context, next: () => void) => {
 <html>
   <head>
     <title>Checkout</title>
+    ${process.env.NODE_ENV !== 'development' ? '<link rel="stylesheet" href="/assets/checkout.css" />' : ''}
   </head>
   <body>
     <h1>checkout</h1>
     <div id="app"></div>
-    <script src="/public/scripts/checkout.js"></script>
+    <script src="/assets/checkout.js"></script>
   </body>
 </html>`
   } else {

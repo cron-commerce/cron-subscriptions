@@ -21,8 +21,8 @@ module.exports = {
   }],
   },
   output: {
-    path: join(__dirname, '.dist', 'public', 'scripts'),
-    publicPath: '/public/scripts',
+    path: join(__dirname, '.dist', 'public', 'assets'),
+    publicPath: '/assets',
   },
   plugins: [
     new MiniCssExtractPlugin(),

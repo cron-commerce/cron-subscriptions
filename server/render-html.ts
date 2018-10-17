@@ -13,7 +13,7 @@ export default (scriptFilename: string) => (ctx: Context) => {
       var shopifyApiKey = '${process.env.SHOPIFY_APP_KEY}';
       var shopifyShopOrigin = 'https://${ctx.session.shop}';
     </script>
-    <script src="/public/scripts/${scriptFilename}"></script>
+    <script src="/assets/${scriptFilename}"></script>
   </body>
 </html>`
 }
