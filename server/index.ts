@@ -39,7 +39,10 @@ const main = async () => {
     afterAuth: afterShopifyAuth,
     apiKey: process.env.SHOPIFY_APP_KEY,
     prefix: shopifyPrefix,
-    scopes: ['read_products'],
+    scopes: [
+      'read_orders', 'write_orders', // for cart webhooks
+      'read_shipping', 'write_shipping', // for shipping calculations
+    ],
     secret: process.env.SHOPIFY_APP_SECRET,
   }))
   .use(verifyRequest({

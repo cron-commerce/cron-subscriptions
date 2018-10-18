@@ -1,7 +1,18 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn} from 'typeorm'
+import {
+  Column,
+  Entity,
+  getManager,
+  Index,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity({name: 'shops'})
 export class Shop {
+  public static findByName = (name: string): Promise<Shop> => {
+    const entityManager = getManager()
+    return entityManager.findOne(Shop, {where: {name}})
+  }
+
   @PrimaryGeneratedColumn()
   public id: number
 
