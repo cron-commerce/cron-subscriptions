@@ -2,6 +2,7 @@ import 'isomorphic-fetch'
 
 import shopifyAuth, {verifyRequest} from '@shopify/koa-shopify-auth'
 import * as Koa from 'koa'
+import * as bodyParser from 'koa-bodyparser'
 import * as favicon from 'koa-favicon'
 import * as logger from 'koa-logger'
 import * as session from 'koa-session'
@@ -33,16 +34,14 @@ const main = async () => {
   app
   .use(favicon(__dirname + '/public/favicon.ico'))
   .use(renderHomepage())
+  .use(bodyParser())
   .use(renderCheckout())
   .use(session(app))
   .use(shopifyAuth({
     afterAuth: afterShopifyAuth,
     apiKey: process.env.SHOPIFY_APP_KEY,
     prefix: shopifyPrefix,
-    scopes: [
-      'read_orders', 'write_orders', // for cart webhooks
-      'read_shipping', 'write_shipping', // for shipping calculations
-    ],
+    scopes: ['write_orders'],
     secret: process.env.SHOPIFY_APP_SECRET,
   }))
   .use(verifyRequest({

@@ -1,21 +1,18 @@
 import {Context} from 'koa'
-import * as Shopify from 'shopify-api-node'
 
 import {Shop} from '../entities/shop'
 import loadManifest from './load-manifest'
 
 export default () => async (ctx: Context, next: () => void) => {
-  if (ctx.path === '/checkout') {
-    const {token: cartToken, shop: shopName} = ctx.query
-
-    if (!cartToken)  {return ctx.body = 'missing ?token' }
+  if (ctx.path === '/checkout' && ctx.method === 'POST') {
+    const {shopName} = ctx.query
     if (!shopName) { return ctx.body = 'missing ?shop' }
 
     const shop = await Shop.findByName(shopName)
-
     if (!shop) { return ctx.body = 'invalid ?shop' }
 
-    //
+    const cart = JSON.parse(decodeURIComponent((ctx.request.body as any).cart))
+    console.log(cart)
 
     const manifest = loadManifest()
 
