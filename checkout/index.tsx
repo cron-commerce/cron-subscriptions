@@ -1,9 +1,9 @@
 import * as React from 'react'
-import {render} from 'react-dom'
+import {hydrate} from 'react-dom'
 
 import App from './app'
 import './styles.scss'
 
-const app = <App />
+const app = <App cart={window.cart} />
 
-render(app, document.getElementById('app'))
+hydrate(app, document.getElementById('app'))

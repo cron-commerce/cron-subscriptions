@@ -1,5 +1,8 @@
 import {Context} from 'koa'
+import * as React from 'react'
+import {renderToString} from 'react-dom/server'
 
+import App from '../checkout/app'
 import {Shop} from '../entities/shop'
 import loadManifest from './load-manifest'
 
@@ -12,7 +15,8 @@ export default () => async (ctx: Context, next: () => void) => {
     if (!shop) { return ctx.body = 'invalid ?shop' }
 
     const cart = JSON.parse(decodeURIComponent((ctx.request.body as any).cart))
-    console.log(cart)
+
+    const app = <App cart={cart} />
 
     const manifest = loadManifest()
 
@@ -24,8 +28,8 @@ export default () => async (ctx: Context, next: () => void) => {
     ${process.env.NODE_ENV !== 'development' ? `<link rel="stylesheet" href="${manifest['checkout.css']}" />` : ''}
   </head>
   <body>
-    <h1>checkout</h1>
-    <div id="app"></div>
+    <div id="app">${renderToString(app)}</div>
+    <script type="text/javascript">var cart = ${JSON.stringify(cart)};</script>
     <script src="${manifest['checkout.js']}"></script>
   </body>
 </html>`
